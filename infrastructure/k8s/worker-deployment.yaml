@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dataflowx-worker
+  namespace: dataflowx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dataflowx-worker
+  template:
+    metadata:
+      labels:
+        app: dataflowx-worker
+    spec:
+      containers:
+        - name: worker
+          image: dataflowx/worker:latest
+          env:
+            - name: ENVIRONMENT
+              value: "production"
+            - name: DATABASE_URL
+              value: "postgresql+asyncpg://dataflowx_user:DataFlowXSecretPass2026!@postgres:5432/dataflowx_db"
+            - name: REDIS_URL
+              value: "redis://redis:6379/0"
+            - name: CELERY_BROKER_URL
+              value: "redis://redis:6379/1"
+            - name: CELERY_RESULT_BACKEND
+              value: "redis://redis:6379/2"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dataflowx-scheduler
+  namespace: dataflowx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dataflowx-scheduler
+  template:
+    metadata:
+      labels:
+        app: dataflowx-scheduler
+    spec:
+      containers:
+        - name: scheduler
+          image: dataflowx/scheduler:latest
+          env:
+            - name: ENVIRONMENT
+              value: "production"
+            - name: DATABASE_URL
+              value: "postgresql+asyncpg://dataflowx_user:DataFlowXSecretPass2026!@postgres:5432/dataflowx_db"
+            - name: REDIS_URL
+              value: "redis://redis:6379/0"

@@ -1,0 +1,9 @@
+apiVersion: v2
+name: dataflowx
+description: A Helm chart for DataFlowX Intelligent Enterprise Data Pipeline & Orchestration Platform
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+maintainers:
+  - name: DataFlowX Platform Engineering
+    email: platform@dataflowx.io

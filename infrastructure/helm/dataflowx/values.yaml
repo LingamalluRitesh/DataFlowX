@@ -1,0 +1,54 @@
+global:
+  environment: production
+  domain: dataflowx.io
+
+backend:
+  replicaCount: 3
+  image:
+    repository: dataflowx/backend
+    tag: latest
+    pullPolicy: IfNotPresent
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 4Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+
+worker:
+  replicaCount: 4
+  image:
+    repository: dataflowx/worker
+    tag: latest
+  concurrency: 8
+  queues:
+    - task_high
+    - task_default
+    - task_low
+
+frontend:
+  replicaCount: 2
+  image:
+    repository: dataflowx/frontend
+    tag: latest
+
+postgres:
+  enabled: true
+  persistence:
+    size: 100Gi
+
+redis:
+  enabled: true
+  persistence:
+    size: 20Gi
+
+minio:
+  enabled: true
+  persistence:
+    size: 500Gi

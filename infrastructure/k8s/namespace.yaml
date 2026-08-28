@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dataflowx
+  labels:
+    name: dataflowx
+    environment: production

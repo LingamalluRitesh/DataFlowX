@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dataflowx-backend
+  namespace: dataflowx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dataflowx-backend
+  template:
+    metadata:
+      labels:
+        app: dataflowx-backend
+    spec:
+      containers:
+        - name: backend
+          image: dataflowx/backend:latest
+          env:
+            - name: ENVIRONMENT
+              value: "production"
+            - name: DATABASE_URL
+              value: "postgresql+asyncpg://dataflowx_user:DataFlowXSecretPass2026!@postgres:5432/dataflowx_db"
+            - name: REDIS_URL
+              value: "redis://redis:6379/0"
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /live
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dataflowx-backend
+  namespace: dataflowx
+spec:
+  selector:
+    app: dataflowx-backend
+  ports:
+    - port: 8000
+      targetPort: 8000

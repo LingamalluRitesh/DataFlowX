@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dataflowx-frontend
+  namespace: dataflowx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dataflowx-frontend
+  template:
+    metadata:
+      labels:
+        app: dataflowx-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: dataflowx/frontend:latest
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dataflowx-frontend
+  namespace: dataflowx
+spec:
+  selector:
+    app: dataflowx-frontend
+  ports:
+    - port: 80
+      targetPort: 3000

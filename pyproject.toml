@@ -1,0 +1,94 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dataflowx"
+version = "1.0.0"
+description = "Intelligent Enterprise Data Pipeline & Orchestration Platform"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "DataFlowX Engineering Team", email = "engineering@dataflowx.io"}
+]
+keywords = [
+    "data-pipeline",
+    "etl",
+    "orchestration",
+    "dag",
+    "data-quality",
+    "data-lineage",
+    "medallion-architecture",
+    "duckdb",
+    "pyarrow",
+    "fastapi",
+    "celery"
+]
+dependencies = [
+    "fastapi>=0.111.0",
+    "uvicorn[standard]>=0.30.0",
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.2.0",
+    "sqlalchemy>=2.0.30",
+    "asyncpg>=0.29.0",
+    "psycopg2-binary>=2.9.9",
+    "alembic>=1.13.1",
+    "redis>=5.0.4",
+    "celery>=5.4.0",
+    "duckdb>=1.0.0",
+    "pyarrow>=16.1.0",
+    "pandas>=2.2.2",
+    "polars>=0.20.26",
+    "openpyxl>=3.1.2",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+    "bcrypt>=4.1.3",
+    "cryptography>=42.0.7",
+    "python-multipart>=0.0.9",
+    "httpx>=0.27.0",
+    "croniter>=2.0.5",
+    "prometheus-client>=0.20.0",
+    "boto3>=1.34.110",
+    "minio>=7.2.7",
+    "rich>=13.7.1",
+    "click>=8.1.7",
+    "tenacity>=8.3.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.0",
+    "pytest-asyncio>=0.23.6",
+    "pytest-cov>=5.0.0",
+    "pytest-mock>=3.14.0",
+    "ruff>=0.4.4",
+    "mypy>=1.10.0",
+    "types-redis>=4.6.0.20240425",
+    "types-requests>=2.31.0.600",
+    "types-croniter>=2.0.0.20240423",
+    "faker>=25.1.0",
+    "locust>=2.28.0"
+]
+
+[tool.setuptools.packages.find]
+include = ["backend*", "connectors*", "data_engine*", "orchestration_engine*", "storage*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = [".venv", "venv", "__pycache__", "alembic/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B", "C4"]
+ignore = ["B008", "E501"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --cov=. --cov-report=term-missing --cov-report=html"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning"
+]
