@@ -8,7 +8,7 @@
 ![TypeScript Version](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![FastAPI Version](https://img.shields.io/badge/FastAPI-0.110-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![License](https://img.shields.io/badge/License-Apache%202.0-green?style=for-the-badge)
+![License](https://img.shields.io/badge/License-Proprietary-blue?style=for-the-badge)
 
 **Next-Generation Distributed Data Engineering, Medallion Lakehouse & Workflow Orchestration Platform**
 
@@ -181,5 +181,5 @@ Detailed documentation manuals are available in the [`docs/`](docs/) directory:
 
 ---
 
-## 📄 License
-DataFlowX is licensed under the Apache License, Version 2.0.
+## 📄 License & Intellectual Property
+DataFlowX is proprietary software. All rights reserved. Commercial distribution, modification, or usage requires an authorized enterprise license agreement.
