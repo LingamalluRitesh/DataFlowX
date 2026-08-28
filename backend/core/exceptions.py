@@ -71,6 +71,26 @@ class ConnectorError(DataFlowXException):
         )
 
 
+class ConnectorAuthenticationError(ConnectorError):
+    def __init__(self, connector_type: str, message: str = "Authentication failed", details: Optional[Dict[str, Any]] = None):
+        super().__init__(connector_type, message, details)
+
+
+class ConnectorConnectionError(ConnectorError):
+    def __init__(self, connector_type: str, message: str = "Connection failed", details: Optional[Dict[str, Any]] = None):
+        super().__init__(connector_type, message, details)
+
+
+class ConnectorQueryError(ConnectorError):
+    def __init__(self, connector_type: str, message: str = "Query execution failed", details: Optional[Dict[str, Any]] = None):
+        super().__init__(connector_type, message, details)
+
+
+class ConnectorSchemaError(ConnectorError):
+    def __init__(self, connector_type: str, message: str = "Schema introspection failed", details: Optional[Dict[str, Any]] = None):
+        super().__init__(connector_type, message, details)
+
+
 class DAGCycleError(DataFlowXException):
     """Raised when circular dependency is detected in pipeline DAG."""
 

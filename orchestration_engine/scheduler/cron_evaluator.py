@@ -1,51 +1,34 @@
 """
-DataFlowX Cron & Schedule Evaluator
-Evaluates standard 5-field cron expressions and intervals with timezone support.
+DataFlowX Cron Expression Evaluator & Next Execution Calculation
+Parses 5-field cron strings and determines precise next scheduled UTC run timestamps.
 """
 
 from datetime import datetime, timedelta, timezone
-from typing import Optional
-from croniter import croniter
-from backend.core.logging import get_logger
-
-logger = get_logger(__name__)
+from typing import Any, Dict, List, Optional
+import croniter
 
 
-class ScheduleEvaluator:
-    """Computes next execution timestamps for pipeline schedules."""
+class CronEvaluator:
+    """Evaluates standard cron expressions (e.g. '0 0 * * *', '*/15 * * * *')."""
 
     @staticmethod
-    def is_due(
-        next_run_at: Optional[datetime],
-        current_time: Optional[datetime] = None
-    ) -> bool:
-        """Check if schedule is currently due for execution."""
-        if not next_run_at:
-            return True
-        now = current_time or datetime.now(timezone.utc)
-        return now >= next_run_at
+    def get_next_run(cron_expression: str, base_time: Optional[datetime] = None) -> datetime:
+        base = base_time or datetime.now(timezone.utc)
+        iter_obj = croniter.croniter(cron_expression, base)
+        return iter_obj.get_next(datetime)
 
     @staticmethod
-    def get_next_run(
-        cron_expression: Optional[str] = None,
-        interval_seconds: Optional[int] = None,
-        base_time: Optional[datetime] = None
-    ) -> datetime:
-        """Calculate next scheduled datetime from cron expression or interval."""
-        now = base_time or datetime.now(timezone.utc)
+    def get_next_n_runs(cron_expression: str, count: int = 5, base_time: Optional[datetime] = None) -> List[datetime]:
+        base = base_time or datetime.now(timezone.utc)
+        iter_obj = croniter.croniter(cron_expression, base)
+        runs = []
+        for _ in range(count):
+            runs.append(iter_obj.get_next(datetime))
+        return runs
 
-        if cron_expression:
-            try:
-                iter_obj = croniter(cron_expression, now)
-                next_ts = iter_obj.get_next(datetime)
-                if next_ts.tzinfo is None:
-                    next_ts = next_ts.replace(tzinfo=timezone.utc)
-                return next_ts
-            except Exception as exc:
-                logger.error(f"Invalid cron expression '{cron_expression}': {exc}")
-                return now + timedelta(hours=1)
+    @staticmethod
+    def is_valid_cron(cron_expression: str) -> bool:
+        return croniter.croniter.is_valid(cron_expression)
 
-        elif interval_seconds and interval_seconds > 0:
-            return now + timedelta(seconds=interval_seconds)
 
-        return now + timedelta(days=1)
+ScheduleEvaluator = CronEvaluator
