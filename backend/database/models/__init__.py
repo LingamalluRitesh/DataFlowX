@@ -79,6 +79,12 @@ from backend.database.models.user import (
     UserSession,
 )
 
+from backend.database.models.governance import (
+    CatalogAssetModel,
+    GlossaryTermModel,
+    DataContractModel,
+)
+
 __all__ = [
     "Base",
     "UUIDPrimaryKeyMixin",
@@ -140,4 +146,7 @@ __all__ = [
     "NotificationTemplate",
     "AuditLog",
     "SystemMetric",
+    "CatalogAssetModel",
+    "GlossaryTermModel",
+    "DataContractModel",
 ]
