@@ -65,6 +65,11 @@ class SchemaDiscoveryResult(BaseModel):
     discovered_at: datetime = Field(default_factory=datetime.utcnow)
 
 
+ColumnSchema = ColumnMeta
+TableSchema = TableMeta
+SchemaInfo = SchemaDiscoveryResult
+
+
 class ConnectionTestResult(BaseModel):
     success: bool
     status: str  # healthy, unhealthy

@@ -18,8 +18,10 @@ from backend.api.v1.organizations import router as organizations_router
 from backend.api.v1.pipelines import router as pipelines_router
 from backend.api.v1.privacy import router as privacy_router
 from backend.api.v1.quality import router as quality_router
+from backend.api.v1.query import router as query_router
 from backend.api.v1.sensors import router as sensors_router
 from backend.api.v1.sources import router as sources_router
+from backend.api.v1.streaming import router as streaming_router
 from backend.api.v1.users import router as users_router
 
 api_v1_router = APIRouter()
@@ -39,6 +41,8 @@ api_v1_router.include_router(contracts_router)
 api_v1_router.include_router(privacy_router)
 api_v1_router.include_router(backfills_router)
 api_v1_router.include_router(sensors_router)
+api_v1_router.include_router(query_router)
+api_v1_router.include_router(streaming_router)
 api_v1_router.include_router(monitoring_router)
 api_v1_router.include_router(audit_router)
 api_v1_router.include_router(health_router)

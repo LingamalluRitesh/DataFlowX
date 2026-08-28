@@ -19,9 +19,13 @@ from backend.core.config import settings
 
 logger = logging.getLogger(__name__)
 
+from sqlalchemy import JSON
+
 # Base Declarative Class
 class Base(DeclarativeBase):
     pass
+
+PortableJSON = JSON
 
 
 # Async Engine Configuration (FastAPI Request Pipeline)

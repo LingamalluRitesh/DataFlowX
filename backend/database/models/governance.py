@@ -43,7 +43,7 @@ class GlossaryTermModel(Base):
 
 
 class DataContractModel(Base):
-    __tablename__ = "data_contracts"
+    __tablename__ = "enterprise_data_contracts"
 
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     workspace_id = Column(String(36), ForeignKey("workspaces.id", ondelete="CASCADE"), nullable=False, index=True)
