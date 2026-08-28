@@ -6,15 +6,28 @@ Allows dynamic discovery, instantiation, and validation of all supported data so
 from typing import Any, Dict, List, Optional, Type
 from backend.core.exceptions import ConnectorError
 from connectors.base import BaseConnector, ConnectorType
+from connectors.azure_blob import AzureBlobConnector
+from connectors.bigquery import BigQueryConnector
 from connectors.csv import CsvConnector
+from connectors.elasticsearch import ElasticsearchConnector
 from connectors.excel import ExcelConnector
+from connectors.google_sheets import GoogleSheetsConnector
+from connectors.grpc import GrpcConnector
+from connectors.hubspot import HubSpotConnector
 from connectors.json import JsonConnector
 from connectors.kafka import KafkaConnector
 from connectors.mongodb import MongoConnector
 from connectors.mysql import MySQLConnector
+from connectors.oracle import OracleConnector
 from connectors.postgres import PostgresConnector
+from connectors.redis_stream import RedisStreamConnector
+from connectors.redshift import RedshiftConnector
 from connectors.rest import RestApiConnector
 from connectors.s3 import MinIOConnector, S3Connector
+from connectors.salesforce import SalesforceConnector
+from connectors.snowflake import SnowflakeConnector
+from connectors.sqlserver import SQLServerConnector
+from connectors.stripe import StripeConnector
 
 
 class ConnectorRegistry:
@@ -31,6 +44,25 @@ class ConnectorRegistry:
         ConnectorType.KAFKA.value: KafkaConnector,
         ConnectorType.S3.value: S3Connector,
         ConnectorType.MINIO.value: MinIOConnector,
+        # Enterprise Cloud Warehouses
+        "snowflake": SnowflakeConnector,
+        "bigquery": BigQueryConnector,
+        "redshift": RedshiftConnector,
+        # Real-Time & Search Engines
+        "elasticsearch": ElasticsearchConnector,
+        "opensearch": ElasticsearchConnector,
+        "redis_stream": RedisStreamConnector,
+        "grpc": GrpcConnector,
+        # SaaS Applications & CRMs
+        "salesforce": SalesforceConnector,
+        "hubspot": HubSpotConnector,
+        "stripe": StripeConnector,
+        "google_sheets": GoogleSheetsConnector,
+        # Cloud Object Stores & RDBMS
+        "azure_blob": AzureBlobConnector,
+        "adls": AzureBlobConnector,
+        "oracle": OracleConnector,
+        "sqlserver": SQLServerConnector,
     }
 
     @classmethod

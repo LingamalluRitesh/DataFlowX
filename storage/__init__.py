@@ -7,6 +7,8 @@ from storage.base import BaseObjectStore
 from storage.local_store import LocalFileStore
 from storage.parquet_manager import ParquetManager
 from storage.s3_store import S3ObjectStore
+from storage.iceberg_manager import IcebergManager, IcebergTableMetadata, IcebergSnapshot
+from storage.delta_manager import DeltaLakeManager, DeltaLogCommit
 
 
 def get_storage_engine() -> BaseObjectStore:
@@ -24,6 +26,11 @@ __all__ = [
     "LocalFileStore",
     "S3ObjectStore",
     "ParquetManager",
+    "IcebergManager",
+    "IcebergTableMetadata",
+    "IcebergSnapshot",
+    "DeltaLakeManager",
+    "DeltaLogCommit",
     "get_storage_engine",
     "storage_engine",
 ]

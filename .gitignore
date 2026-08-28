@@ -47,8 +47,10 @@ coverage/
 
 # Environment and Secrets
 .env
+.env*
 .env.local
 .env.production
+.env.example
 *.pem
 *.key
 credentials.json
